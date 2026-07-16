@@ -5,10 +5,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { validateEmail, validateTextField } from '../utils/validation';
 
 const features = [
-  { icon: Book,       label: 'قاعدة المعرفة',     color: '#3B82F6' },
-  { icon: CheckCircle,label: 'إجراءات التشغيل',   color: '#10B981' },
-  { icon: BarChart3,  label: 'تحليلات متقدمة',    color: '#8B5CF6' },
-  { icon: Users,      label: 'إدارة الفرق',        color: '#F59E0B' },
+  { icon: Book,       label: 'قاعدة المعرفة الموحدة',     color: '#3B82F6' },
+  { icon: CheckCircle,label: 'إجراءات التشغيل المعيارية',   color: '#10B981' },
+  { icon: BarChart3,  label: 'تحليلات شاملة',    color: '#8B5CF6' },
+  { icon: Users,      label: 'إدارة الموارد البشرية',        color: '#F59E0B' },
 ];
 
 const Login = () => {
@@ -123,8 +123,8 @@ const Login = () => {
                 {loading ? <Loader size={24} color="#2563EB" className="spin" /> : <Users size={24} color="#2563EB" />}
               </div>
               <div>
-                <p style={{ fontWeight:700, fontSize:'1rem', color:'#0F172A', margin:'0 0 0.2rem' }}>دخول كموظف (آدم فاروق)</p>
-                <p style={{ fontSize:'0.8125rem', color:'#64748B', margin:0 }}>الوصول لقاعدة المعرفة والإجراءات</p>
+                <p style={{ fontWeight:700, fontSize:'1rem', color:'#0F172A', margin:'0 0 0.2rem' }}>دخول الموظف</p>
+                <p style={{ fontSize:'0.8125rem', color:'#64748B', margin:0 }}>الوصول للبوابة الرئيسية والإجراءات</p>
               </div>
             </button>
 
@@ -140,8 +140,8 @@ const Login = () => {
                 {loading ? <Loader size={24} color="#3B82F6" className="spin" /> : <ShieldCheck size={24} color="#3B82F6" />}
               </div>
               <div>
-                <p style={{ fontWeight:700, fontSize:'1rem', color:'#0F172A', margin:'0 0 0.2rem' }}>دخول كمدير (استاذ ابراهيم)</p>
-                <p style={{ fontSize:'0.8125rem', color:'#64748B', margin:0 }}>لوحة التحكم والإحصائيات والإدارة</p>
+                <p style={{ fontWeight:700, fontSize:'1rem', color:'#0F172A', margin:'0 0 0.2rem' }}>دخول الإدارة</p>
+                <p style={{ fontSize:'0.8125rem', color:'#64748B', margin:0 }}>لوحة التحكم والإحصائيات والتقارير</p>
               </div>
             </button>
           </div>
