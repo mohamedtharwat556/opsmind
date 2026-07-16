@@ -1,7 +1,12 @@
 {
   "name": "opsmind",
+  "version": "1.0.0",
+  "description": "منصة العمليات المؤسسية المتكاملة - OPSMind Platform",
+  "author": "Mohamed Tharwat",
+  "repository": "https://github.com/mohamedtharwat556/opsmind",
+  "homepage": "https://github.com/mohamedtharwat556/opsmind#readme",
+  "license": "MIT",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,3 +30,4 @@
     "vite": "^8.1.1"
   }
 }
+
