@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import React, { useState, useEffect } from 'react';
 import { Users, FileText, CheckCircle, Clock, Check, X, TrendingUp, AlertTriangle, Zap, Activity, PlayCircle, Edit3, XCircle, AlertCircle, Send, MessageSquare } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
 

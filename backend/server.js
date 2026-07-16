@@ -6,6 +6,9 @@ const http = require('http');
 const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 
+// ✅ Load Configuration
+const config = require('./config');
+
 // ✅ Import validators and middleware
 const {
   validateEmail,
@@ -25,6 +28,9 @@ const {
   securityHeaders
 } = require('./middleware');
 
+// ✅ Import Password Hasher
+const passwordHasher = require('./password-hasher');
+
 // ✅ Import Email Service (جديد)
 const { EmailService, sendEmail } = require('./emailer-enhanced');
 
@@ -36,15 +42,15 @@ app.use(securityHeaders);
 app.use(enhancedCORS);
 app.use(express.json());
 app.use(sanitizeRequestBody);
-app.use(rateLimiter(15 * 60 * 1000, 100)); // 100 requests per 15 min
+app.use(rateLimiter(config.RATE_LIMIT_WINDOW, config.RATE_LIMIT_MAX_REQUESTS));
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: '*' }
+  cors: { origin: config.CORS_ORIGIN }
 });
 
-const JWT_SECRET = 'yas-super-secret-key-2026';
-const dbPath = path.join(__dirname, 'db.json');
+const JWT_SECRET = config.JWT_SECRET;
+const dbPath = path.join(__dirname, config.DB_PATH);
 
 // Database Template
 let db = {
