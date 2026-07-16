@@ -9,22 +9,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 )
 
-// ✅ Register Service Worker for PWA Support
-if ('serviceWorker' in navigator) {
+// ✅ Register Service Worker for PWA Support (Optional)
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
       .then(registration => {
-        console.log('✅ Service Worker registered:', registration);
+        console.log('✅ Service Worker registered');
       })
       .catch(error => {
-        console.error('❌ Service Worker registration failed:', error);
+        console.warn('Service Worker registration skipped in production:', error);
       });
-  });
-
-  // Listen for messages from Service Worker
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data.type === 'SYNC_COMPLETE') {
-      console.log('📱 Data synced successfully');
-    }
   });
 }
