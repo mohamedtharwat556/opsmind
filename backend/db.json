@@ -1,0 +1,407 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "ادم فاروق",
+      "email": "adam@yas.com",
+      "role": "موظف",
+      "department": "الدعم الفني",
+      "status": "غير نشط",
+      "points": 640
+    },
+    {
+      "id": 2,
+      "name": "محمد ثروت",
+      "email": "tharwat@yas.com",
+      "role": "رئيس قسم الهندسة",
+      "department": "الهندسة",
+      "status": "نشط",
+      "points": 1250
+    },
+    {
+      "id": 3,
+      "name": "عبدالله رضا",
+      "email": "abdullah@yas.com",
+      "role": "مدير منتج",
+      "department": "إدارة المنتج",
+      "status": "نشط",
+      "points": 980
+    },
+    {
+      "id": 4,
+      "name": "تاح",
+      "email": "tah@yas.com",
+      "role": "مهندس DevOps",
+      "department": "الهندسة",
+      "status": "غير نشط",
+      "points": 320
+    },
+    {
+      "id": 5,
+      "name": "استاذ ابراهيم",
+      "email": "ibrahim@yas.com",
+      "role": "المدير العام",
+      "department": "الإدارة العامة",
+      "status": "نشط",
+      "points": 1500
+    },
+    {
+      "id": 6,
+      "name": "خالد هيكل",
+      "email": "khaled@yas.com",
+      "role": "محاسب أول",
+      "department": "المالية",
+      "status": "نشط",
+      "points": 450
+    },
+    {
+      "id": 7,
+      "name": "احمد ماهر",
+      "email": "maher@yas.com",
+      "role": "مسؤول الموارد البشرية",
+      "department": "الموارد البشرية",
+      "status": "نشط",
+      "points": 210
+    },
+    {
+      "id": "u8",
+      "name": "عبده موته",
+      "email": "mhmdthrwt744@gmail.com",
+      "role": "موظف",
+      "department": "إدارة المنتج",
+      "status": "نشط"
+    }
+  ],
+  "stats": {
+    "totalUsers": {
+      "value": 7,
+      "change": "+1 نشط هذا الأسبوع",
+      "isPositive": true
+    },
+    "activeSOPs": {
+      "value": 3,
+      "change": "+1 جديد",
+      "isPositive": true
+    },
+    "resolvedCases": {
+      "value": 16,
+      "change": "+3 مكتمل",
+      "isPositive": true
+    },
+    "avgResponseTime": {
+      "value": "2.4h",
+      "change": "-15m تحسن",
+      "isPositive": true
+    }
+  },
+  "approvals": [
+    {
+      "id": 1,
+      "user": "عبدالله رضا",
+      "action": "اقتراح تعديل على SOP-104",
+      "details": "إضافة خطوة تفعيل الـ 2FA في GitHub للموظفين الجدد",
+      "time": "منذ ساعتين",
+      "targetType": "sop_edit",
+      "targetId": "SOP-104"
+    },
+    {
+      "id": 2,
+      "user": "محمد ثروت",
+      "action": "إرسال مسودة SOP جديدة",
+      "details": "SOP-502: خطة الاستجابة لحوادث الأمن السيبراني",
+      "time": "منذ يوم",
+      "targetType": "sop_create",
+      "targetId": "SOP-502"
+    }
+  ],
+  "cases": [
+    {
+      "id": "#1073",
+      "title": "يئءؤئء",
+      "reporter": "ادم فاروق",
+      "sop": "SOP-201",
+      "status": "مفتوح",
+      "time": "الآن"
+    },
+    {
+      "id": "#405",
+      "title": "الموظف الجديد لم يستلم دعوة GitHub",
+      "reporter": "عبدالله ر.",
+      "sop": "SOP-104",
+      "status": "محلول",
+      "time": "منذ ساعتين"
+    },
+    {
+      "id": "#406",
+      "title": "فشل النشر (Deployment) في مرحلة البناء",
+      "reporter": "محمد ث.",
+      "sop": "SOP-201",
+      "status": "محلول",
+      "time": "منذ 5 ساعات"
+    },
+    {
+      "id": "#407",
+      "title": "لا يمكن الوصول للـ VPN الداخلي",
+      "reporter": "تاح",
+      "sop": "لا يوجد",
+      "status": "مفتوح",
+      "time": "منذ يوم"
+    },
+    {
+      "id": "#408",
+      "title": "تم رفض إيصال المصروفات من النظام",
+      "reporter": "خالد ه.",
+      "sop": "SOP-305",
+      "status": "مفتوح",
+      "time": "منذ يومين"
+    }
+  ],
+  "sops": [
+    {
+      "id": "SOP-104",
+      "title": "إعداد المهندسين الجدد (Onboarding)",
+      "version": "v2.4",
+      "status": "فعال",
+      "owner": "عمليات الهندسة",
+      "lastUpdated": "12 أكتوبر 2023",
+      "priority": "عالية",
+      "steps": [
+        {
+          "title": "تهيئة البريد الإلكتروني للشركة",
+          "desc": "قم بإنشاء حساب Gmail للموظف الجديد وأضفه للمجموعات المناسبة."
+        },
+        {
+          "title": "دعوة لحساب GitHub للمؤسسة",
+          "desc": "أرسل دعوة إلى حساب GitHub الخاص بالمهندس الجديد.",
+          "warning": "تأكد من تفعيل خاصية المصادقة الثنائية (2FA) قبل إرسال الدعوة."
+        },
+        {
+          "title": "تثبيت بيئة التطوير المحلية",
+          "desc": "اتبع دليل الإعداد المتاح في قاعدة المعرفة لتنزيل التبعيات وتوفير حاويات Docker."
+        }
+      ],
+      "relatedCases": [
+        {
+          "id": "#405",
+          "title": "الموظف الجديد لم يستلم دعوة GitHub",
+          "reporter": "عبدالله ر."
+        }
+      ]
+    },
+    {
+      "id": "SOP-201",
+      "title": "نشر البرمجيات (Software Deployment)",
+      "version": "v1.8",
+      "status": "فعال",
+      "owner": "فريق DevOps",
+      "lastUpdated": "01 نوفمبر 2023",
+      "priority": "حرجة",
+      "steps": [
+        {
+          "title": "تشغيل الاختبارات التلقائية",
+          "desc": "تأكد من نجاح جميع اختبارات CI/CD قبل دمج الفرع الرئيسي."
+        },
+        {
+          "title": "التحقق من سجل المراقبة",
+          "desc": "افتح لوحة مراقبة Datadog وتأكد من عدم وجود أخطاء حرجة."
+        },
+        {
+          "title": "النشر التدريجي (Canary)",
+          "desc": "قم بتوجيه 10% من الزيارات للإصدار الجديد للتأكد من استقرار الخدمة."
+        }
+      ],
+      "relatedCases": [
+        {
+          "id": "#406",
+          "title": "فشل النشر (Deployment) في مرحلة البناء",
+          "reporter": "محمد ث."
+        }
+      ]
+    },
+    {
+      "id": "SOP-305",
+      "title": "استرداد المصروفات النثرية (Expenses)",
+      "version": "v3.0",
+      "status": "مراجعة مطلوبة",
+      "owner": "الحسابات والمالية",
+      "lastUpdated": "15 يناير 2024",
+      "priority": "متوسطة",
+      "steps": [
+        {
+          "title": "رفع الفواتير والإيصالات الكترونياً",
+          "desc": "قم بمسح الإيصال ورفعه من خلال شاشة الخدمة الذاتية."
+        },
+        {
+          "title": "الحصول على موافقة رئيس القسم الدورية",
+          "desc": "تأكد من توقيع مدير القسم المباشر على نموذج الطلب."
+        }
+      ],
+      "relatedCases": [
+        {
+          "id": "#408",
+          "title": "تم رفض إيصال المصروفات من النظام",
+          "reporter": "خالد ه."
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "كيفية إعداد VPN الداخلي للشركة للعمل عن بُعد",
+      "category": "الشبكات و VPN",
+      "views": 342,
+      "updated": "منذ يومين"
+    },
+    {
+      "id": 2,
+      "title": "دليل استكشاف أخطاء الطابعة المشتركة وحلها",
+      "category": "أنظمة التشغيل",
+      "views": 218,
+      "updated": "منذ أسبوع"
+    },
+    {
+      "id": 3,
+      "title": "طريقة طلب صلاحيات وصول جديدة لـ AWS Console",
+      "category": "خدمات السحابة (Cloud)",
+      "views": 156,
+      "updated": "منذ 3 أيام"
+    },
+    {
+      "id": 4,
+      "title": "سياسة كلمات المرور القوية وتأمين الحسابات بالشركة",
+      "category": "الأمن والخصوصية",
+      "views": 489,
+      "updated": "منذ شهر"
+    },
+    {
+      "id": 5,
+      "title": "كيفية إعداد بيئة التطوير (Dev Environment) للمطورين الجدد",
+      "category": "أدوات الهندسة",
+      "views": 275,
+      "updated": "منذ 5 أيام"
+    }
+  ],
+  "departments": [
+    {
+      "name": "الهندسة",
+      "members": 45,
+      "sops": 32,
+      "head": "م. محمد ثروت",
+      "color": "#2563EB"
+    },
+    {
+      "name": "الدعم الفني",
+      "members": 28,
+      "sops": 18,
+      "head": "م. ادم فاروق",
+      "color": "#059669"
+    },
+    {
+      "name": "الموارد البشرية",
+      "members": 12,
+      "sops": 14,
+      "head": "أ. احمد ماهر",
+      "color": "#D97706"
+    },
+    {
+      "name": "إدارة المنتج",
+      "members": 15,
+      "sops": 10,
+      "head": "أ. عبدالله رضا",
+      "color": "#7C3AED"
+    },
+    {
+      "name": "المالية",
+      "members": 8,
+      "sops": 11,
+      "head": "أ. خالد هيكل",
+      "color": "#DC2626"
+    }
+  ],
+  "settings": {
+    "companyName": "YAS",
+    "language": "العربية",
+    "timezone": "القاهرة (GMT+2)",
+    "notificationEmail": "admin@yas.com",
+    "notifications": {
+      "newCase": true,
+      "sopEdit": true,
+      "dailySummary": false,
+      "permissionsChange": true
+    },
+    "minPasswordLength": 8,
+    "sessionTimeout": 30
+  },
+  "auditLogs": [
+    {
+      "id": 6,
+      "user": "ادم فاروق",
+      "action": "الإبلاغ عن مشكلة",
+      "target": "#1073",
+      "status": "مفتوح",
+      "time": "الآن"
+    },
+    {
+      "id": 5,
+      "user": "ادم فاروق",
+      "action": "حل وإغلاق المشكلة",
+      "target": "#406",
+      "status": "مغلق",
+      "time": "الآن"
+    },
+    {
+      "id": 4,
+      "user": "ادم فاروق",
+      "action": "حل وإغلاق المشكلة",
+      "target": "#405",
+      "status": "مغلق",
+      "time": "الآن"
+    },
+    {
+      "id": 1,
+      "user": "ادم فاروق",
+      "action": "تشغيل إجراء تشغيل قياسي",
+      "target": "SOP-104: إعداد المهندسين الجدد",
+      "status": "مكتمل بنجاح",
+      "time": "منذ 10 دقائق"
+    },
+    {
+      "id": 2,
+      "user": "عبدالله رضا",
+      "action": "إنشاء مقترح تعديل",
+      "target": "SOP-104",
+      "status": "بانتظار موافقة المدير",
+      "time": "منذ ساعتين"
+    },
+    {
+      "id": 3,
+      "user": "محمد ثروت",
+      "action": "حل وتوثيق مشكلة",
+      "target": "بلاغ #406: فشل النشر",
+      "status": "مغلق",
+      "time": "منذ 5 ساعات"
+    }
+  ],
+  "playbookLogs": [],
+  "announcements": [
+    {
+      "id": 1,
+      "title": "أعلان إجازة العيد",
+      "content": "تم تحديد إجازة العيد من 15 إلى 20 مايو. جميع الموظفين مطالبون بإنهاء مهامهم قبل موعد الإجازة.",
+      "author": "استاذ ابراهيم",
+      "targetAudience": "الجميع",
+      "priority": "عالية",
+      "timestamp": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "تحديث نظام الموارد البشرية",
+      "content": "سيتم تحديث نظام HR الأسبوع القادم. سيشمل التحديث تحسينات في نظام الإجازات والرواتب.",
+      "author": "احمد ماهر",
+      "targetAudience": "الموارد البشرية",
+      "priority": "عادية",
+      "timestamp": "2024-01-14T14:30:00Z"
+    }
+  ]
+}

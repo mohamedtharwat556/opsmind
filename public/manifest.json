@@ -1,0 +1,69 @@
+{
+  "name": "منصة YAS - العمليات المؤسسية",
+  "short_name": "YAS",
+  "description": "منصة العمليات المؤسسية المتكاملة - إدارة الإجراءات والعمليات والمشاكل",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563EB",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "540x720",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot2.png",
+      "sizes": "1280x720",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الإبلاغ عن مشكلة",
+      "short_name": "مشكلة",
+      "description": "الإبلاغ عن مشكلة جديدة",
+      "url": "/user/cases?new=true",
+      "icons": [
+        {
+          "src": "/icons.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "قاعدة المعرفة",
+      "short_name": "معرفة",
+      "description": "البحث في قاعدة المعرفة",
+      "url": "/user/knowledge-base",
+      "icons": [
+        {
+          "src": "/icons.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
