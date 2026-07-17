@@ -15,7 +15,9 @@ const config = {
   
   // CORS & URLs
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
-  CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  CORS_ORIGINS: process.env.CORS_ORIGINS 
+    ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim()) 
+    : ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
   
   // Database
   DB_PATH: process.env.DB_PATH || './db.json',

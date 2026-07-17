@@ -1,5 +1,6 @@
 /**
  * Middleware Functions للأمان والمصادقة
+ * @module middleware
  */
 
 const jwt = require('jsonwebtoken');
@@ -8,7 +9,12 @@ const config = require('./config');
 
 const JWT_SECRET = config.JWT_SECRET;
 
-// ✅ Authentication Middleware
+/**
+ * Authentication middleware to verify JWT tokens
+ * @param {import('express').Request} req - Express request object
+ * @param {import('express').Response} res - Express response object
+ * @param {import('express').NextFunction} next - Express next function
+ */
 const authenticate = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -48,7 +54,11 @@ const authenticate = (req, res, next) => {
   }
 };
 
-// ✅ Role-Based Authorization
+/**
+ * Role-based authorization middleware
+ * @param {...string} allowedRoles - List of allowed roles
+ * @returns {import('express').RequestHandler} Express middleware function
+ */
 const authorize = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -81,13 +91,15 @@ const sanitizeRequestBody = (req, res, next) => {
   next();
 };
 
-// ✅ Rate Limiting (حماية من الهجمات) - محسّن للتطوير
-const rateLimiter = (windowMs = 15 * 60 * 1000, maxRequests = 10000) => {
+// ✅ Rate Limiting (حماية من الهجمات)
+const rateLimiter = (windowMs = config.RATE_LIMIT_WINDOW, maxRequests = config.RATE_LIMIT_MAX_REQUESTS) => {
   const requests = new Map();
 
   return (req, res, next) => {
-    // تخطي Rate Limiting في بيئة التطوير دائماً
-    return next();
+    // Skip rate limiting only in development
+    if (config.NODE_ENV === 'development') {
+      return next();
+    }
 
     const ip = req.ip || req.connection.remoteAddress;
     const now = Date.now();
@@ -159,11 +171,7 @@ const requestLogger = (req, res, next) => {
 
 // ✅ CORS Middleware (محسّن)
 const enhancedCORS = (req, res, next) => {
-  const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'http://127.0.0.1:5173'
-  ];
+  const allowedOrigins = config.CORS_ORIGINS;
 
   const origin = req.headers.origin;
 
