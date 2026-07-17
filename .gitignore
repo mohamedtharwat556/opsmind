@@ -40,3 +40,5 @@ dist/
 
 # Temporary scripts
 backend/hash-test-passwords.js
+
+.vercel
