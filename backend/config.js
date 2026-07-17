@@ -3,7 +3,6 @@
  */
 
 require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
 
 const config = {
   // Server
@@ -25,10 +24,6 @@ const config = {
   // Database
   DB_PATH: process.env.DB_PATH || './db.json',
   
-  // Supabase
-  SUPABASE_URL: process.env.SUPABASE_URL,
-  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-  
   // Security
   RATE_LIMIT_WINDOW: 15 * 60 * 1000, // 15 minutes
   RATE_LIMIT_MAX_REQUESTS: 100,
@@ -49,19 +44,6 @@ const config = {
   APP_NAME: 'OPSMind',
   APP_VERSION: '1.0.0',
 };
-
-// Initialize Supabase client if credentials are provided
-let supabase = null;
-try {
-  if (config.SUPABASE_URL && config.SUPABASE_URL.startsWith('http') && config.SUPABASE_ANON_KEY) {
-    supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
-    console.log('✅ Supabase client initialized');
-  } else {
-    console.log('ℹ️ Supabase credentials not provided, using file-based DB');
-  }
-} catch (error) {
-  console.log('ℹ️ Supabase initialization skipped, using file-based DB');
-}
 
 // Validate critical config
 const validateConfig = () => {
