@@ -6,8 +6,8 @@ README.md
 .env
 .DS_Store
 *.log
-backend/
-dist/
-build/
-.vscode/
-.idea/
+backend
+dist
+build
+.vscode
+.idea
