@@ -17,7 +17,6 @@
     },
     "backend": {
       "root": "backend",
-      "framework": null,
       "buildCommand": "npm install"
     }
   }
