@@ -157,11 +157,38 @@ npm run lint      # فحص الأكواد
 
 ## 📚 التوثيق
 
-| الملف | الوصف |
-|------|-------|
-| [QUICK_START.md](./QUICK_START.md) | البدء السريع (5 دقائق) |
-| [INDEX.md](./INDEX.md) | فهرس شامل |
-| [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md) | دليل الدمج |
+## 🚀 النشر على Vercel
+
+### نشر Frontend على Vercel
+
+1. ادفع الكود إلى GitHub
+2. سجل الدخول إلى [Vercel](https://vercel.com)
+3. اضغط "Add New Project"
+4. استيراد المستودع من GitHub
+5. Vercel سيكتشف تلقائياً إعدادات Vite
+6. اضغط "Deploy"
+
+### نشر Backend على Vercel
+
+1. في Vercel، اضغط "Add New Project"
+2. استيراد نفس المستودع
+3. في إعدادات المشروع:
+   - **Root Directory**: `backend`
+   - **Build Command**: `npm install`
+   - **Output Directory**: `.`
+4. أضف متغيرات البيئة التالية:
+   - `NODE_ENV`: `production`
+   - `JWT_SECRET`: (أنشئ مفتاح قوي)
+   - `FRONTEND_URL`: (رابط الـ frontend)
+   - `CORS_ORIGIN`: (رابط الـ frontend)
+5. اضغط "Deploy"
+
+### متغيرات البيئة المطلوبة
+
+انسخ `.env.example` إلى `.env` وعدّل القيم:
+```bash
+cp .env.example .env
+```
 
 ## 📄 الترخيص
 

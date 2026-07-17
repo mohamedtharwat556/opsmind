@@ -1,6 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm install",
+  "outputDirectory": ".",
   "env": {
     "NODE_ENV": "production",
     "PORT": "5000",
@@ -9,13 +10,33 @@
     "CORS_ORIGIN": "@cors_origin"
   },
   "functions": {
-    "server.js": {
+    "api/**/*.js": {
       "runtime": "nodejs24.x",
       "memory": 1024,
       "maxDuration": 60
     }
   },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/server.js" }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/health", "dest": "/server.js" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
   ]
 }
