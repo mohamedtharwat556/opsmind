@@ -20,6 +20,10 @@ const config = {
   // Database
   DB_PATH: process.env.DB_PATH || './db.json',
   
+  // Supabase
+  SUPABASE_URL: process.env.SUPABASE_URL,
+  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+  
   // Security
   RATE_LIMIT_WINDOW: 15 * 60 * 1000, // 15 minutes
   RATE_LIMIT_MAX_REQUESTS: 100,
