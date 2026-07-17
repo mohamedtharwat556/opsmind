@@ -157,7 +157,7 @@ npm run lint      # فحص الأكواد
 
 ## 📚 التوثيق
 
-## 🚀 النشر على Vercel
+## 🚀 النشر على Vercel و Railway
 
 ### نشر Frontend على Vercel
 
@@ -168,20 +168,21 @@ npm run lint      # فحص الأكواد
 5. Vercel سيكتشف تلقائياً إعدادات Vite
 6. اضغط "Deploy"
 
-### نشر Backend على Vercel
+### نشر Backend على Railway
 
-1. في Vercel، اضغط "Add New Project"
-2. استيراد نفس المستودع
-3. في إعدادات المشروع:
+1. سجل الدخول إلى [Railway](https://railway.app)
+2. اضغط "New Project" → "Deploy from GitHub repo"
+3. استيراد المستودع من GitHub
+4. في إعدادات المشروع:
    - **Root Directory**: `backend`
    - **Build Command**: `npm install`
-   - **Output Directory**: `.`
-4. أضف متغيرات البيئة التالية:
+   - **Start Command**: `node server.js`
+5. أضف متغيرات البيئة التالية:
    - `NODE_ENV`: `production`
    - `JWT_SECRET`: (أنشئ مفتاح قوي)
-   - `FRONTEND_URL`: (رابط الـ frontend)
-   - `CORS_ORIGIN`: (رابط الـ frontend)
-5. اضغط "Deploy"
+   - `FRONTEND_URL`: (رابط الـ frontend من Vercel)
+   - `CORS_ORIGIN`: (رابط الـ frontend من Vercel)
+6. اضغط "Deploy"
 
 ### متغيرات البيئة المطلوبة
 
