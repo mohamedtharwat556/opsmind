@@ -40,7 +40,7 @@ const Login = () => {
 
     setLoading(true);
     try {
-      const user = await login(email, 'password');
+      const user = await login(email, roleType === 'user' ? 'password123' : 'admin123');
       if (roleType === 'admin' && (user.role === 'المدير العام' || user.role === 'رئيس قسم الهندسة')) {
         navigate('/admin');
       } else {
