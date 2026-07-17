@@ -262,14 +262,7 @@ app.get('/api/dashboard/stats', (req, res) => {
   res.json({ stats, approvals: db.approvals });
 });
 
-// Get all departments
-app.get('/api/departments', (req, res) => {
-  try {
-    res.json(db.departments || []);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// Get all departments (moved later to avoid duplicate)
 
 // Create department
 app.post('/api/departments', authenticate, (req, res) => {
@@ -319,25 +312,6 @@ app.post('/api/dashboard/approvals/:id/action', authenticate, (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-
-// Users
-app.get('/api/users', (req, res) => {
-  res.json(db.users);
-});
-
-app.post('/api/users', (req, res) => {
-  const { name, email, role, department } = req.body;
-  const newUser = {
-    id: 'u' + (db.users.length + 1),
-    name,
-    email,
-    role: role || 'موظف',
-    department: department || 'عام'
-  };
-  db.users.push(newUser);
-  saveDb();
-  res.status(201).json(newUser);
 });
 
 // Audit Logs
@@ -1057,15 +1031,20 @@ app.delete('/api/announcements/:id', authenticate, authorize('المدير ال�
 
 // ====================================
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`✅ Backend server running on port ${PORT}`);
-  console.log(`🔐 Validation and Security enabled`);
-  console.log(`📚 Database loaded`);
+// 404 Not Found Handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found', message: 'The requested endpoint does not exist' });
 });
 
 // Error Handler (must be last)
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal Server Error' });
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`✅ Backend server running on port ${PORT}`);
+  console.log(`🔐 Validation and Security enabled`);
+  console.log(`📚 Database loaded`);
 });
