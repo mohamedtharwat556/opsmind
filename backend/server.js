@@ -7,7 +7,7 @@ const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 
 // ✅ Load Configuration
-const config = require('./config');
+const { ...config, supabase } = require('./config');
 
 // ✅ Import validators and middleware
 const {
@@ -128,7 +128,7 @@ app.get('/health', (req, res) => {
 });
 
 // Auth
-app.post('/api/auth/login', (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -150,7 +150,20 @@ app.post('/api/auth/login', (req, res) => {
     
     if (!user) {
       return res.status(401).json({ 
-        error: 'البريد الإلكتروني غير صحيح',
+        error: 'البيانات المستخدمة غير صحيحة',
+        code: 'INVALID_CREDENTIALS'
+      });
+    }
+
+    // Check password if hashed password exists
+    let passwordValid = true;
+    if (user.password) {
+      passwordValid = await passwordHasher.compare(password, user.password);
+    }
+
+    if (!passwordValid) {
+      return res.status(401).json({ 
+        error: 'البيانات المستخدمة غير صحيحة',
         code: 'INVALID_CREDENTIALS'
       });
     }
@@ -161,12 +174,16 @@ app.post('/api/auth/login', (req, res) => {
       { expiresIn: '24h' }
     );
 
+    // Remove password from user object before sending to client
+    const { password: _, ...userWithoutPassword } = user;
+
     res.json({ 
       token, 
-      user,
+      user: userWithoutPassword,
       message: `مرحباً ${user.name}!`
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: error.message });
   }
 });

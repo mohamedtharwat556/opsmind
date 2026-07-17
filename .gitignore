@@ -37,3 +37,6 @@ coverage
 # Build
 build/
 dist/
+
+# Temporary scripts
+backend/hash-test-passwords.js

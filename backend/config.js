@@ -3,6 +3,7 @@
  */
 
 require('dotenv').config();
+const { createClient } = require('@supabase/supabase-js');
 
 const config = {
   // Server
@@ -47,9 +48,15 @@ const config = {
   APP_VERSION: '1.0.0',
 };
 
+// Initialize Supabase client if credentials are provided
+let supabase = null;
+if (config.SUPABASE_URL && config.SUPABASE_ANON_KEY) {
+  supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+}
+
 // Validate critical config
 const validateConfig = () => {
-  const required = ['JWT_SECRET', 'FRONTEND_URL', 'CORS_ORIGIN'];
+  const required = ['JWT_SECRET', 'FRONTEND_URL'];
   for (const key of required) {
     if (!config[key]) {
       console.warn(`⚠️ Missing ${key} - using default`);
@@ -66,4 +73,4 @@ const validateConfig = () => {
 
 validateConfig();
 
-module.exports = config;
+module.exports = { ...config, supabase };

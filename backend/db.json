@@ -4,9 +4,10 @@
       "id": 1,
       "name": "ادم فاروق",
       "email": "adam@yas.com",
+      "password": "$2a$10$NsQuONycCzEy7A8BHIfGR.ne8WWVLMX.JR/VLlhy8tfQ1ICS79HRG",
       "role": "موظف",
       "department": "الدعم الفني",
-      "status": "غير نشط",
+      "status": "نشط",
       "points": 640
     },
     {
@@ -40,6 +41,7 @@
       "id": 5,
       "name": "استاذ ابراهيم",
       "email": "ibrahim@yas.com",
+      "password": "$2a$10$CMQoTB3LBdsX9tQ7XCqxrua5cj23Y7A5xtOaBpv03jAI7ao1GEgFa",
       "role": "المدير العام",
       "department": "الإدارة العامة",
       "status": "نشط",
