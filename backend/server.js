@@ -7,7 +7,8 @@ const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 
 // ✅ Load Configuration
-const { ...config, supabase } = require('./config');
+const config = require('./config');
+const { supabase } = config;
 
 // ✅ Import validators and middleware
 const {
