@@ -26,7 +26,6 @@ const UserSidebar = () => {
       <button 
         className="sidebar-toggle"
         onClick={() => setMobileOpen(!mobileOpen)}
-        style={{ display: 'none', '@media (max-width: 768px)': { display: 'block' } }}
       >
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>

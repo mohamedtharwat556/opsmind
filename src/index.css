@@ -599,6 +599,26 @@ tbody tr:hover { background: var(--slate-50); }
   gap: 0.5rem;
 }
 
+/* ============ SIDEBAR TOGGLE ============ */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 0.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block;
+  }
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1200px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
