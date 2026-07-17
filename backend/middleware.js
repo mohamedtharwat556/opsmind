@@ -175,7 +175,10 @@ const enhancedCORS = (req, res, next) => {
 
   const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
+  // Allow all origins in development or if * is in allowedOrigins
+  if (config.NODE_ENV === 'development' || allowedOrigins.includes('*')) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  } else if (origin && allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
 
