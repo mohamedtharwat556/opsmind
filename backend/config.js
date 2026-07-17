@@ -52,15 +52,15 @@ const config = {
 
 // Initialize Supabase client if credentials are provided
 let supabase = null;
-if (config.SUPABASE_URL && config.SUPABASE_URL.startsWith('http') && config.SUPABASE_ANON_KEY) {
-  try {
+try {
+  if (config.SUPABASE_URL && config.SUPABASE_URL.startsWith('http') && config.SUPABASE_ANON_KEY) {
     supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
     console.log('✅ Supabase client initialized');
-  } catch (error) {
-    console.warn('⚠️ Failed to initialize Supabase client:', error.message);
+  } else {
+    console.log('ℹ️ Supabase credentials not provided, using file-based DB');
   }
-} else {
-  console.log('ℹ️ Supabase credentials not provided, using file-based DB');
+} catch (error) {
+  console.log('ℹ️ Supabase initialization skipped, using file-based DB');
 }
 
 // Validate critical config
