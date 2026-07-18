@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -7,29 +7,30 @@ import { ToastProvider } from './contexts/ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastContainer } from './components/Toast';
 import { useToast } from './contexts/ToastContext';
+import SkeletonLoader from './components/SkeletonLoader';
 
 // Layouts
-import UserLayout from './components/UserLayout';
-import AdminLayout from './components/AdminLayout';
+const UserLayout = lazy(() => import('./components/UserLayout'));
+const AdminLayout = lazy(() => import('./components/AdminLayout'));
 
 // Shared
-import Landing from './pages/Landing';
-import Login from './pages/Login';
+const Landing = lazy(() => import('./pages/Landing'));
+const Login = lazy(() => import('./pages/Login'));
 
 // User Pages
-import EmployeePortal from './pages/EmployeePortal';
-import KnowledgeBase from './pages/KnowledgeBase';
-import SOPs from './pages/SOPs';
-import Cases from './pages/Cases';
-import DocumentsLibrary from './pages/DocumentsLibrary';
-import Profile from './pages/Profile';
+const EmployeePortal = lazy(() => import('./pages/EmployeePortal'));
+const KnowledgeBase = lazy(() => import('./pages/KnowledgeBase'));
+const SOPs = lazy(() => import('./pages/SOPs'));
+const Cases = lazy(() => import('./pages/Cases'));
+const DocumentsLibrary = lazy(() => import('./pages/DocumentsLibrary'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 // Admin Pages
-import Dashboard from './pages/Dashboard';
-import Users from './pages/Users';
-import Departments from './pages/Departments';
-import Reports from './pages/Reports';
-import Settings from './pages/Settings';
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Users = lazy(() => import('./pages/Users'));
+const Departments = lazy(() => import('./pages/Departments'));
+const Reports = lazy(() => import('./pages/Reports'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -54,29 +55,31 @@ const AdminRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      
-      {/* User Routes */}
-      <Route path="/user" element={<PrivateRoute><UserLayout /></PrivateRoute>}>
-        <Route index element={<EmployeePortal />} />
-        <Route path="knowledge-base" element={<KnowledgeBase />} />
-        <Route path="sops" element={<SOPs />} />
-        <Route path="cases" element={<Cases />} />
-        <Route path="documents" element={<DocumentsLibrary />} />
-        <Route path="profile" element={<Profile />} />
-      </Route>
-      
-      {/* Admin Routes */}
-      <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
-        <Route index element={<Dashboard />} />
-        <Route path="users" element={<Users />} />
-        <Route path="departments" element={<Departments />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}><SkeletonLoader count={3} /></div>}>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        
+        {/* User Routes */}
+        <Route path="/user" element={<PrivateRoute><UserLayout /></PrivateRoute>}>
+          <Route index element={<EmployeePortal />} />
+          <Route path="knowledge-base" element={<KnowledgeBase />} />
+          <Route path="sops" element={<SOPs />} />
+          <Route path="cases" element={<Cases />} />
+          <Route path="documents" element={<DocumentsLibrary />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="departments" element={<Departments />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

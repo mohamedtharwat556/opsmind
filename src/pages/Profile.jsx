@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Zap, Book, CheckCircle, TrendingUp, Star, Trophy, Target, Gift, ChevronUp } from 'lucide-react';
+import { Award, Zap, Book, CheckCircle, TrendingUp, Star, Trophy, Target, Gift, ChevronUp, Camera } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const LEADERBOARD = [
@@ -45,6 +45,21 @@ const Profile = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [animPts, setAnimPts] = useState(0);
+  const [profilePic, setProfilePic] = useState(() => {
+    return localStorage.getItem('profilePic') || null;
+  });
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePic(reader.result);
+        localStorage.setItem('profilePic', reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const currentUser = user?.name === 'آدم فاروق' || user?.name === 'ادم فاروق'
     ? LEADERBOARD.find(u => u.isCurrentUser)
@@ -87,8 +102,32 @@ const Profile = () => {
       {/* Hero Card */}
       <div className="card anim-up d1" style={{ padding: '2rem', background: 'linear-gradient(135deg, #1E293B 0%, #1D4ED8 100%)', color: 'white', border: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.75rem', fontWeight: 800, backdropFilter: 'blur(8px)', border: '2px solid rgba(255,255,255,0.3)' }}>
-            {currentUser?.initials || 'أ.ف'}
+          <div style={{ position: 'relative' }}>
+            <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.75rem', fontWeight: 800, backdropFilter: 'blur(8px)', border: '2px solid rgba(255,255,255,0.3)', overflow: 'hidden' }}>
+              {profilePic ? <img src={profilePic} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (currentUser?.initials || 'أ.ف')}
+            </div>
+            <label style={{ 
+              position: 'absolute', 
+              bottom: -4, 
+              right: -4, 
+              width: 28, 
+              height: 28, 
+              borderRadius: '50%', 
+              background: '#2563EB', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+            }}>
+              <Camera size={14} color="white" />
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleProfilePicChange} 
+                style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} 
+              />
+            </label>
           </div>
           <div style={{ flex: 1 }}>
             <h2 style={{ margin: '0 0 0.25rem', fontSize: '1.4rem', fontWeight: 800 }}>{user?.name || 'آدم فاروق'}</h2>

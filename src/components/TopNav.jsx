@@ -9,6 +9,18 @@ const TopNav = () => {
   const { notifications, unreadCount, markAllRead } = useNotifications();
   const { isDark, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [profilePic, setProfilePic] = useState(() => {
+    return localStorage.getItem('profilePic') || null;
+  });
+
+  // Listen for changes to profilePic in localStorage
+  React.useEffect(() => {
+    const handleStorageChange = () => {
+      setProfilePic(localStorage.getItem('profilePic') || null);
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -89,8 +101,8 @@ const TopNav = () => {
             <p style={{ margin: '0 0 0.15rem', fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>{user?.name || 'الموظف'}</p>
             <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748B' }}>{user?.role || 'موظف'}</p>
           </div>
-          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#2563EB', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem' }}>
-            {user?.name?.charAt(0) || 'أ'}
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#2563EB', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem', overflow: 'hidden' }}>
+            {profilePic ? <img src={profilePic} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (user?.name?.charAt(0) || 'أ')}
           </div>
         </div>
 
