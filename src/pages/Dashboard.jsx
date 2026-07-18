@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, FileText, CheckCircle, Clock, Check, X, TrendingUp, AlertTriangle, Zap, Activity, PlayCircle, Edit3, XCircle, AlertCircle, Send, MessageSquare } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -130,9 +131,41 @@ const Dashboard = () => {
   };
 
   if (loading) return (
-    <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'60vh', flexDirection:'column', gap:'1rem' }}>
-      <div className="spinner" />
-      <p style={{ color:'#64748B', fontSize:'0.875rem' }}>جاري تحميل البيانات...</p>
+    <div style={{ padding: '1.75rem 2rem' }}>
+      <div className="page-header" style={{ marginBottom: '1.5rem' }}>
+        <div style={{ height: '2rem', width: '200px', background: 'var(--border)', borderRadius: '8px' }} />
+        <div style={{ height: '1rem', width: '300px', marginTop: '0.5rem', background: 'var(--border)', borderRadius: '4px' }} />
+      </div>
+      
+      <div className="grid-4" style={{ marginBottom: '1.5rem' }}>
+        {[1, 2, 3, 4].map(i => (
+          <div key={i} className="card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <div style={{ width: '80px', height: '0.875rem', background: 'var(--border)', borderRadius: '4px' }} />
+              <div style={{ width: '36px', height: '36px', background: 'var(--border)', borderRadius: '10px' }} />
+            </div>
+            <div style={{ width: '120px', height: '2rem', background: 'var(--border)', borderRadius: '4px', marginBottom: '0.5rem' }} />
+            <div style={{ width: '100px', height: '0.875rem', background: 'var(--border)', borderRadius: '4px' }} />
+          </div>
+        ))}
+      </div>
+      
+      <div className="grid-2" style={{ marginBottom: '1.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+            <div style={{ width: '16px', height: '16px', background: 'var(--border)', borderRadius: '4px' }} />
+            <div style={{ width: '150px', height: '0.9375rem', background: 'var(--border)', borderRadius: '4px' }} />
+          </div>
+          <SkeletonLoader count={2} type="row" />
+        </div>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+            <div style={{ width: '16px', height: '16px', background: 'var(--border)', borderRadius: '4px' }} />
+            <div style={{ width: '150px', height: '0.9375rem', background: 'var(--border)', borderRadius: '4px' }} />
+          </div>
+          <SkeletonLoader count={2} type="row" />
+        </div>
+      </div>
     </div>
   );
 

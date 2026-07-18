@@ -13,6 +13,7 @@ import UserLayout from './components/UserLayout';
 import AdminLayout from './components/AdminLayout';
 
 // Shared
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 
 // User Pages
@@ -54,6 +55,7 @@ const AdminRoute = ({ children }) => {
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       
       {/* User Routes */}
@@ -74,8 +76,6 @@ function AppRoutes() {
         <Route path="reports" element={<Reports />} />
         <Route path="settings" element={<Settings />} />
       </Route>
-
-      <Route path="/" element={<Navigate to="/user" />} />
     </Routes>
   );
 }

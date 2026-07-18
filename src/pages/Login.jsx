@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Zap, Users, ShieldCheck, CheckCircle, BarChart3, Book, Loader, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import { validateEmail, validateTextField } from '../utils/validation';
 
 const features = [
@@ -15,6 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
@@ -28,12 +30,14 @@ const Login = () => {
     // ✅ Validation
     const emailValidation = validateEmail(email);
     if (!emailValidation.valid) {
+      showToast(emailValidation.error, 'error');
       setValidationErrors({ email: emailValidation.error });
       return;
     }
 
     const passwordValidation = validateTextField('password', 1);
     if (!passwordValidation.valid && !email) {
+      showToast(passwordValidation.error, 'error');
       setValidationErrors({ password: passwordValidation.error });
       return;
     }
@@ -41,13 +45,16 @@ const Login = () => {
     setLoading(true);
     try {
       const user = await login(email, roleType === 'user' ? 'password123' : 'admin123');
+      showToast('تم تسجيل الدخول بنجاح!', 'success');
       if (roleType === 'admin' && (user.role === 'المدير العام' || user.role === 'رئيس قسم الهندسة')) {
         navigate('/admin');
       } else {
         navigate(from === '/admin' ? '/user' : from);
       }
     } catch (err) {
-      setError(err.message || 'فشل تسجيل الدخول');
+      const errorMsg = err.message || 'فشل تسجيل الدخول';
+      showToast(errorMsg, 'error');
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
