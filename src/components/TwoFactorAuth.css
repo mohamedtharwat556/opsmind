@@ -1,0 +1,503 @@
+.two-factor-auth {
+  padding: 24px;
+  background: var(--bg-secondary, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  max-width: 600px;
+}
+
+.two-factor-auth h2 {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+}
+
+/* Status - Enabled */
+.status-enabled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 12px;
+}
+
+.status-icon {
+  font-size: 60px;
+  margin-bottom: 16px;
+}
+
+.status-enabled h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+}
+
+.status-enabled p {
+  margin: 0 0 24px 0;
+  color: var(--text-secondary, #475569);
+  font-size: 14px;
+}
+
+/* Steps */
+.setup-step,
+.verify-step,
+.backup-step,
+.confirm-step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 12px;
+  animation: step-appear 0.3s ease-out;
+}
+
+@keyframes step-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-icon {
+  font-size: 48px;
+  text-align: center;
+}
+
+.setup-step h3,
+.verify-step h3,
+.backup-step h3,
+.confirm-step h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+  text-align: center;
+}
+
+.setup-step > p,
+.verify-step > p,
+.backup-step > p,
+.confirm-step > p {
+  margin: 0;
+  color: var(--text-secondary, #475569);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Setup Benefits */
+.setup-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 12px;
+}
+
+.benefit-icon {
+  font-size: 32px;
+}
+
+.benefit h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+}
+
+.benefit p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-secondary, #475569);
+}
+
+/* QR Section */
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.qr-code-placeholder {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed var(--border, #e2e8f0);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: var(--text-secondary, #475569);
+}
+
+.qr-instruction {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary, #475569);
+  text-align: center;
+}
+
+/* OTP Input */
+.otp-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.otp-input-section label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+}
+
+.otp-input-group {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.otp-digit {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  text-align: center;
+  border: 2px solid var(--border, #e2e8f0);
+  border-radius: 8px;
+  background: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #0f172a);
+  font-size: 20px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.otp-digit:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.otp-digit::placeholder {
+  color: var(--border, #e2e8f0);
+}
+
+/* Backup Codes */
+.backup-codes-box {
+  padding: 20px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.backup-warning {
+  padding: 12px;
+  background: #fef2f2;
+  color: #DC2626;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.backup-codes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+
+.backup-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.code-number {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2563EB;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.code-value {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  color: var(--text-primary, #0f172a);
+  font-weight: 600;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  transform: scale(1.2);
+}
+
+.backup-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.backup-actions button {
+  flex: 1;
+}
+
+/* Confirm Summary */
+.confirm-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 6px;
+  border-left: 4px solid #10B981;
+}
+
+.item-icon {
+  font-size: 18px;
+}
+
+.summary-item span:last-child {
+  font-size: 13px;
+  color: var(--text-primary, #0f172a);
+  font-weight: 500;
+}
+
+/* Active Sessions */
+.active-sessions {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border, #e2e8f0);
+}
+
+.active-sessions h4 {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+}
+
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: var(--bg-secondary, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 8px;
+}
+
+.session-device {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+  flex: 1;
+}
+
+.session-date {
+  font-size: 12px;
+  color: var(--text-secondary, #475569);
+}
+
+.session-item .btn-ghost {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* Buttons */
+.btn-primary {
+  align-self: center;
+  padding: 10px 24px;
+  background: #2563EB;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 10px 24px;
+  background: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #0f172a);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.btn-secondary:hover {
+  border-color: #2563EB;
+  color: #2563EB;
+}
+
+.btn-danger {
+  padding: 10px 24px;
+  background: #fee2e2;
+  color: #DC2626;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: #fecaca;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  color: #2563EB;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .two-factor-auth {
+    padding: 16px;
+  }
+
+  .otp-input-group {
+    gap: 6px;
+  }
+
+  .otp-digit {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .backup-codes-list {
+    grid-template-columns: 1fr;
+  }
+
+  .backup-actions {
+    flex-direction: column;
+  }
+
+  .session-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.dark-mode .two-factor-auth {
+  background: #334155;
+}
+
+.dark-mode .setup-step,
+.dark-mode .verify-step,
+.dark-mode .backup-step,
+.dark-mode .confirm-step {
+  background: #1e293b;
+}
+
+.dark-mode .setup-benefits,
+.dark-mode .qr-section,
+.dark-mode .otp-input-section,
+.dark-mode .backup-codes-box,
+.dark-mode .confirm-summary {
+  background: #0f172a;
+}
+
+.dark-mode .otp-digit {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark-mode .backup-code {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.dark-mode .session-item {
+  background: #0f172a;
+  border-color: #334155;
+}
