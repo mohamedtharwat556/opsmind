@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Filter, AlertCircle, Clock, CheckCircle2 } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext';
+import SkeletonLoader from '../components/SkeletonLoader';
+import Pagination from '../components/Pagination';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -8,8 +11,27 @@ const Cases = () => {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('open'); // 'open' or 'resolved'
+  const { showToast } = useToast;
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   
   const [formData, setFormData] = useState({ title: '', sop: '', details: '', department: 'الدعم الفني' });
+  const [formErrors, setFormErrors] = useState({});
+  
+  // Validate form
+  const validateForm = () => {
+    const errors = {};
+    
+    if (!formData.title.trim()) {
+      errors.title = 'عنوان المشكلة مطلوب';
+    } else if (formData.title.trim().length < 5) {
+      errors.title = 'عنوان المشكلة يجب أن يكون 5 أحرف على الأقل';
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const fetchCases = () => {
     setLoading(true);
@@ -28,7 +50,10 @@ const Cases = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.title.trim()) return;
+    
+    if (!validateForm()) {
+      return;
+    }
 
     fetch(`${API_URL}/api/cases`, {
       method: 'POST',
@@ -44,6 +69,11 @@ const Cases = () => {
         fetchCases();
         setShowForm(false);
         setFormData({ title: '', sop: '', details: '', department: 'الدعم الفني' });
+        setFormErrors({});
+        showToast('تم إرسال البلاغ بنجاح!', 'success');
+      })
+      .catch(() => {
+        showToast('حدث خطأ أثناء إرسال البلاغ', 'error');
       });
   };
 
@@ -56,6 +86,10 @@ const Cases = () => {
       .then(res => res.json())
       .then(() => {
         fetchCases();
+        showToast('تم تسجيل الحل بنجاح!', 'success');
+      })
+      .catch(() => {
+        showToast('حدث خطأ أثناء تحديث الحالة', 'error');
       });
   };
 
@@ -85,7 +119,21 @@ const Cases = () => {
           <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="input-group" style={{ gridColumn: '1 / -1' }}>
               <label className="form-label">عنوان المشكلة *</label>
-              <input className="input" placeholder="وصف مختصر وواضح للمشكلة" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} required />
+              <input 
+                className="input" 
+                placeholder="وصف مختصر وواضح للمشكلة" 
+                value={formData.title} 
+                onChange={e => {
+                  setFormData({ ...formData, title: e.target.value });
+                  if (formErrors.title) {
+                    setFormErrors({ ...formErrors, title: '' });
+                  }
+                }} 
+                style={{ borderColor: formErrors.title ? '#ef4444' : undefined }}
+              />
+              {formErrors.title && (
+                <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem' }}>{formErrors.title}</p>
+              )}
             </div>
             <div className="input-group">
               <label className="form-label">القسم المختص</label>
@@ -110,7 +158,10 @@ const Cases = () => {
               <textarea className="input" rows="3" placeholder="أضف سياق المشكلة والبيانات المتوفرة للحل..." value={formData.details} onChange={e => setFormData({ ...formData, details: e.target.value })} style={{ resize: 'vertical' }}></textarea>
             </div>
             <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
-              <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>إلغاء</button>
+              <button type="button" className="btn btn-secondary" onClick={() => {
+                setShowForm(false);
+                setFormErrors({});
+              }}>إلغاء</button>
               <button type="submit" className="btn btn-primary">إرسال البلاغ</button>
             </div>
           </form>
@@ -140,67 +191,73 @@ const Cases = () => {
         </div>
 
         {loading ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B' }}>
-            <div className="spinner" style={{ margin: '0 auto 1rem' }}></div>
-            <p>جاري تحميل قائمة المشاكل...</p>
-          </div>
+          <SkeletonLoader count={5} type="table" />
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right' }}>
-            <thead>
-              <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>رقم المشكلة</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>العنوان</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>المُبلغ</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الإجراء المرتبط</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الحالة</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الوقت</th>
-                <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B', textAlign: 'left' }}>إجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCases.map((c, i) => (
-                <tr key={i} className="animate-fadeIn" style={{ borderBottom: '1px solid #F1F5F9', transition: 'background 0.2s', animationDelay: `${i * 0.05}s` }}
-                  onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'white'}
-                >
-                  <td style={{ padding: '1rem 1.5rem', fontWeight: 700, fontSize: '0.875rem', color: '#2563EB' }}>{c.id}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: 500, color: '#0F172A', maxWidth: '280px' }}>{c.title}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748B' }}>{c.reporter}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem' }}>
-                    {c.sop && c.sop !== 'لا يوجد' ? (
-                      <span style={{ background: '#EFF6FF', color: '#2563EB', padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600 }}>{c.sop}</span>
-                    ) : <span style={{ color: '#94A3B8' }}>—</span>}
-                  </td>
-                  <td style={{ padding: '1rem' }}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.75rem', fontWeight: 600, padding: '0.25rem 0.75rem', borderRadius: '20px', ...(c.status === 'مفتوح' ? { background: '#FEF2F2', color: '#DC2626' } : c.status === 'قيد العمل' ? { background: '#FFFBEB', color: '#D97706' } : { background: '#ECFDF5', color: '#059669' }) }}>
-                      <AlertCircle size={12} /> {c.status}
-                    </span>
-                  </td>
-                  <td style={{ padding: '1rem', fontSize: '0.8rem', color: '#64748B' }}>{c.time}</td>
-                  <td style={{ padding: '1rem', textAlign: 'left' }}>
-                    {c.status !== 'محلول' ? (
-                      <button 
-                        className="btn btn-success" 
-                        style={{ padding: '0.375rem 0.75rem', fontSize: '0.75rem', gap: '0.25rem' }}
-                        onClick={() => handleResolve(c.id)}
-                      >
-                        <CheckCircle2 size={13} /> تم الحل
-                      </button>
-                    ) : (
-                      <span style={{ color: '#10B981', fontSize: '0.8rem', fontWeight: 600 }}>إغلاق مكتمل ✓</span>
-                    )}
-                  </td>
+          <>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right' }}>
+              <thead>
+                <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>رقم المشكلة</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>العنوان</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>المُبلغ</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الإجراء المرتبط</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الحالة</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B' }}>الوقت</th>
+                  <th style={{ padding: '0.875rem 1.5rem', fontWeight: 600, fontSize: '0.8rem', color: '#64748B', textAlign: 'left' }}>إجراءات</th>
                 </tr>
-              ))}
-              {filteredCases.length === 0 && (
-                <tr>
-                  <td colSpan="7" style={{ padding: '3rem', textAlign: 'center', color: '#94A3B8' }}>
-                    لا توجد مشاكل معروضة حالياً.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredCases.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((c, i) => (
+                  <tr key={i} className="animate-fadeIn" style={{ borderBottom: '1px solid #F1F5F9', transition: 'background 0.2s', animationDelay: `${i * 0.05}s` }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                  >
+                    <td style={{ padding: '1rem 1.5rem', fontWeight: 700, fontSize: '0.875rem', color: '#2563EB' }}>{c.id}</td>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: 500, color: '#0F172A', maxWidth: '280px' }}>{c.title}</td>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748B' }}>{c.reporter}</td>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem' }}>
+                      {c.sop && c.sop !== 'لا يوجد' ? (
+                        <span style={{ background: '#EFF6FF', color: '#2563EB', padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600 }}>{c.sop}</span>
+                      ) : <span style={{ color: '#94A3B8' }}>—</span>}
+                    </td>
+                    <td style={{ padding: '1rem' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.75rem', fontWeight: 600, padding: '0.25rem 0.75rem', borderRadius: '20px', ...(c.status === 'مفتوح' ? { background: '#FEF2F2', color: '#DC2626' } : c.status === 'قيد العمل' ? { background: '#FFFBEB', color: '#D97706' } : { background: '#ECFDF5', color: '#059669' }) }}>
+                        <AlertCircle size={12} /> {c.status}
+                      </span>
+                    </td>
+                    <td style={{ padding: '1rem', fontSize: '0.8rem', color: '#64748B' }}>{c.time}</td>
+                    <td style={{ padding: '1rem', textAlign: 'left' }}>
+                      {c.status !== 'محلول' ? (
+                        <button 
+                          className="btn btn-success" 
+                          style={{ padding: '0.375rem 0.75rem', fontSize: '0.75rem', gap: '0.25rem' }}
+                          onClick={() => handleResolve(c.id)}
+                        >
+                          <CheckCircle2 size={13} /> تم الحل
+                        </button>
+                      ) : (
+                        <span style={{ color: '#10B981', fontSize: '0.8rem', fontWeight: 600 }}>إغلاق مكتمل ✓</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+                {filteredCases.length === 0 && (
+                  <tr>
+                    <td colSpan="7" style={{ padding: '3rem', textAlign: 'center', color: '#94A3B8' }}>
+                      لا توجد مشاكل معروضة حالياً.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(filteredCases.length / itemsPerPage)}
+              onPageChange={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredCases.length}
+            />
+          </>
         )}
       </div>
     </div>

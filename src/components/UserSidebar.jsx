@@ -29,11 +29,17 @@ const UserSidebar = () => {
       >
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+      
+      {/* Overlay */}
+      <div 
+        className={`overlay ${mobileOpen ? 'visible' : ''}`} 
+        onClick={() => setMobileOpen(false)} 
+      />
 
-      <aside className="sidebar" style={{ transform: mobileOpen ? 'translateX(0)' : '', zIndex: mobileOpen ? 50 : 'auto' }}>
+      <aside className={`sidebar ${mobileOpen ? 'open' : ''}`}>
         {/* Logo */}
         <div style={{ padding: '1.5rem 1.25rem', borderBottom: '1px solid #E2E8F0', marginBottom: '1rem' }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', textDecoration: 'none' }}>
+          <Link to="/" onClick={() => setMobileOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', textDecoration: 'none' }}>
             <div style={{ width: 36, height: 36, borderRadius: 10, background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={20} color="white" fill="white" />
             </div>
@@ -50,6 +56,7 @@ const UserSidebar = () => {
               <Link
                 key={i}
                 to={item.path}
+                onClick={() => setMobileOpen(false)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
