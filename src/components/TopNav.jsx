@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Bell, Menu, LogOut, Search, Settings } from 'lucide-react';
+import { Bell, Menu, LogOut, Search, Settings, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotifications } from '../contexts/NotificationContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const TopNav = () => {
   const { user, logout } = useAuth();
   const { notifications, unreadCount, markAllRead } = useNotifications();
+  const { isDark, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
 
   const handleLogout = () => {
@@ -96,6 +98,9 @@ const TopNav = () => {
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           <button className="btn-icon" title="الإعدادات">
             <Settings size={20} color="#64748B" />
+          </button>
+          <button className="btn-icon" onClick={toggleTheme} title={isDark ? "الوضع الفاتح" : "الوضع الداكن"}>
+            {isDark ? <Sun size={20} color="#64748B" /> : <Moon size={20} color="#64748B" />}
           </button>
           <button className="btn-icon" onClick={handleLogout} title="تسجيل الخروج">
             <LogOut size={20} color="#64748B" />

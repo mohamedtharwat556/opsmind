@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 /**
  * Toast Component - إشعارات عائمة
@@ -14,6 +15,8 @@ export const Toast = ({
   duration = 4000, 
   onClose 
 }) => {
+  const { isDark } = useTheme();
+  
   useEffect(() => {
     if (duration) {
       const timer = setTimeout(onClose, duration);
@@ -23,32 +26,32 @@ export const Toast = ({
 
   const toastConfig = {
     success: {
-      bg: '#ECFDF5',
-      border: '#D1FAE5',
-      text: '#065F46',
+      bg: isDark ? '#064E3B' : '#ECFDF5',
+      border: isDark ? '#065F46' : '#D1FAE5',
+      text: isDark ? '#A7F3D0' : '#065F46',
       icon: CheckCircle,
-      bgDark: '#059669'
+      bgDark: isDark ? '#10B981' : '#059669'
     },
     error: {
-      bg: '#FEF2F2',
-      border: '#FECACA',
-      text: '#7F1D1D',
+      bg: isDark ? '#7F1D1D' : '#FEF2F2',
+      border: isDark ? '#991B1B' : '#FECACA',
+      text: isDark ? '#FECACA' : '#7F1D1D',
       icon: AlertCircle,
-      bgDark: '#DC2626'
+      bgDark: isDark ? '#EF4444' : '#DC2626'
     },
     warning: {
-      bg: '#FFFBEB',
-      border: '#FDE68A',
-      text: '#92400E',
+      bg: isDark ? '#78350F' : '#FFFBEB',
+      border: isDark ? '#92400E' : '#FDE68A',
+      text: isDark ? '#FDE68A' : '#92400E',
       icon: AlertCircle,
-      bgDark: '#D97706'
+      bgDark: isDark ? '#F59E0B' : '#D97706'
     },
     info: {
-      bg: '#EFF6FF',
-      border: '#BFDBFE',
-      text: '#0C2340',
+      bg: isDark ? '#1E3A8A' : '#EFF6FF',
+      border: isDark ? '#1D4ED8' : '#BFDBFE',
+      text: isDark ? '#BFDBFE' : '#0C2340',
       icon: Info,
-      bgDark: '#3B82F6'
+      bgDark: isDark ? '#3B82F6' : '#3B82F6'
     }
   };
 
@@ -68,7 +71,7 @@ export const Toast = ({
         display: 'flex',
         alignItems: 'center',
         gap: '1rem',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
         zIndex: 999,
         maxWidth: '400px',
         animation: 'slideUp 0.3s ease-out',
@@ -98,7 +101,7 @@ export const Toast = ({
           cursor: 'pointer',
           padding: 0,
           color: config.text,
-          opacity: 0.6,
+          opacity: 0.7,
           fontSize: 0
         }}
       >
