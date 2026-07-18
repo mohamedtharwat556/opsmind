@@ -44,6 +44,18 @@ export const ToastProvider = ({ children }) => {
     return addToast(message, 'info', 3000, title);
   };
 
+  const showToast = (message, type = 'info') => {
+    if (type === 'success') {
+      return success(message);
+    } else if (type === 'error') {
+      return error(message);
+    } else if (type === 'warning') {
+      return warning(message);
+    } else {
+      return info(message);
+    }
+  };
+
   const value = {
     toasts,
     addToast,
@@ -51,7 +63,8 @@ export const ToastProvider = ({ children }) => {
     success,
     error,
     warning,
-    info
+    info,
+    showToast
   };
 
   return (
